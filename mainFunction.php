@@ -9,7 +9,7 @@ class PrivEncryption{
     private String $privSecretIV = "iv-key-secret";
     
     //Secret key (change this)
-    private String $privSecretKey = "this-is-ansln-key";
+    private String $privSecretKey = "priv-key";
 
     //Encryption method (chiper method)
     private String $privEncryptionMethod = "AES-256-CFB";
