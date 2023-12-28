@@ -37,10 +37,10 @@ class PrivEncryption{
         $encryptSSL = openssl_encrypt($sanitizedString, $encryptionMethod, $hashKey, 0, $iv);
         
         //Decode the encrypted string with Base64
-        $finalOutput = base64_encode($encryptSSL);
+        $finalEncrypt = base64_encode($encryptSSL);
         
         //Return the result of encrypted string
-        echo $finalOutput;
+        echo $finalEncrypt;
     }
 
     protected function privDecryption($string, $secretKey){
@@ -68,12 +68,12 @@ class PrivEncryption{
         //Initialization Vector - Return part of a secret key - Encrypt method AES-256-CFB must be 16 bytes
         $iv = substr(hash('sha256', $secretIV), 0, 16);
 
-        //Encryption with Openssl
-        $finalOutput = openssl_decrypt($decodedString, $encryptionMethod, $hashKey, 0, $iv);
+        //Encrypt with Openssl
+        $finalDecrypt = openssl_decrypt($decodedString, $encryptionMethod, $hashKey, 0, $iv);
         
         //Return the decrypted string
         if ($hashKey == $secretKeyMaster) {
-            echo $finalOutput;
+            echo $finalDecrypt;
         } else {
             echo "Invalid Secret Key!";
         }
