@@ -30,10 +30,10 @@ class PrivEncryption{
         //Hash the secret key
         $hashKey = hash('sha256', $secretKey);
 
-        //Initialization Vector - Return part of a secret key - Encrypt method AES-256-CFB must be 16 bytes
+        //Initialization Vector - Return part of a secret iv - Encrypt method AES-256-CFB must be 16 bytes
         $iv = substr(hash('sha256', $secretIV), 0, 16);
 
-        //Encryption with Openssl
+        //Encrypt with Openssl
         $encryptSSL = openssl_encrypt($sanitizedString, $encryptionMethod, $hashKey, 0, $iv);
         
         //Decode the encrypted string with Base64
@@ -65,10 +65,10 @@ class PrivEncryption{
         //Hash the secret key from user
         $hashKey = hash('sha256', $sanitizedSecretKey);
 
-        //Initialization Vector - Return part of a secret key - Encrypt method AES-256-CFB must be 16 bytes
+        //Initialization Vector - Return part of a secret iv - Encrypt method AES-256-CFB must be 16 bytes
         $iv = substr(hash('sha256', $secretIV), 0, 16);
 
-        //Encrypt with Openssl
+        //Decrypt with Openssl
         $finalDecrypt = openssl_decrypt($decodedString, $encryptionMethod, $hashKey, 0, $iv);
         
         //Return the decrypted string
@@ -80,6 +80,7 @@ class PrivEncryption{
     }
 
     private function sanitize($value){
+        //Prevent special characters
         return htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
     }
 }
